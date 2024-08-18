@@ -1,95 +1,58 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+'use client'
+import Abdominal from "@/Option/Abdominal";
+import Finger from "@/Option/Finger";
+import { Box, Button, Container, Flex, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+
 
 export default function Home() {
+  const [selectOption, setSelectOption] = useState<number>();
+  useEffect(()=>{
+    setSelectOption(0)
+  },[])
+
+  function checkAndReturnOption(){
+    if(selectOption === 0){
+      return <MainMenu />
+    }
+    else if(selectOption === 1){
+      return <Abdominal/>
+    }
+    else if(selectOption === 2){
+      return <Finger/>
+    }
+  }
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <Container maxW={"1920px"} display={"flex"} flexDirection={"column"} justifyContent={"center"} h={"100vh"}>
+      {
+        checkAndReturnOption()
+      }
+    </Container>
   );
+  
+  function MainMenu(){
+    return (
+      <Flex flexDir={"column"}
+        gap={"60px"} alignItems={"center"}
+      >
+        <Text fontSize={"36px"} fontWeight={"600"}>ตอนนี้คุณรู้สึกอย่างไร</Text>
+        <Flex flexDir={"column"} gap={"30px"}>
+          <Button p={"28px"} colorScheme="teal" onClick={()=>{
+            setSelectOption(1)
+          }}>
+            <Text fontSize={"24px"}>1.ปวดหน้าท้อง</Text>
+          </Button>
+          <Button p={"28px"} colorScheme="teal" onClick={()=>{
+            setSelectOption(2)
+          }}>
+            <Text fontSize={"24px"}>2.เจ็บบริเวณนิ้ว</Text>
+          </Button>
+        </Flex>
+      </Flex>
+    )
+  }
+
 }
+
+
